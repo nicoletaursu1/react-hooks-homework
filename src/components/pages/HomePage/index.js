@@ -1,10 +1,26 @@
-// https://github.com/diegohaz/arc/wiki/Atomic-Design
-import React from 'react'
+import React, { Component } from 'react'
 
-const HomePage = () => {
-  return (
-    <div>Hello World</div>
-  )
+import TaskListProvider from 'context/taskList.context';
+import { getState } from 'utils/localStorage';
+
+import List from 'components/List';
+import Form from 'components/Form';
+
+import { StyledWrapper } from './styles';
+
+const defaultStateValue = getState() || [];
+
+class HomePage extends Component {
+  render() {
+    return (
+      <TaskListProvider defaultState={defaultStateValue}>
+        <StyledWrapper>
+          <Form />
+          <List />
+        </StyledWrapper>
+      </TaskListProvider>
+    );
+  }
 }
 
 export default HomePage
