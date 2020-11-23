@@ -21,3 +21,7 @@ APPEARANCE DOESN't MATTER
 
 ##### **BONUS**
 - Find functional bug and fix it (optional) *tip - it's not about height
+
+### To start the development
+- yarn
+- yarn dev
