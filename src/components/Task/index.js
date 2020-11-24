@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Input from 'components/Input';
 import { getState } from 'utils/localStorage';
-
+import { TaskListConsumer } from 'context/taskList.context';
 import { StyledEdit, StyledTask, StyledDelete, StyledText, StyledButton, StyledEditForm, StyledButtonsWrapper } from './styles';
 
 class Task extends Component {
@@ -18,9 +18,9 @@ class Task extends Component {
         e.preventDefault();
 
         const { editValue } = this.state;
-        const taskList = getState();
+        const { taskList } = this.props;
         const taskExists = taskList.some(({ text }) => editValue === text);
-
+        
         if (editValue && !taskExists) {
             const { id } = this.props;
 
@@ -60,4 +60,8 @@ class Task extends Component {
     }
 }
 
-export default Task;
+export default (componentProps) => (
+    <TaskListConsumer>
+        {(props) => <Task {...props} {...componentProps} />}
+    </TaskListConsumer>
+);
