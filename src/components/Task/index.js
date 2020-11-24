@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Input from 'components/Input';
+import { getState } from 'utils/localStorage';
 
 import { StyledEdit, StyledTask, StyledDelete, StyledText, StyledButton, StyledEditForm, StyledButtonsWrapper } from './styles';
 
@@ -17,8 +18,10 @@ class Task extends Component {
         e.preventDefault();
 
         const { editValue } = this.state;
+        const taskList = getState();
+        const taskExists = taskList.some(({ text }) => editValue === text);
 
-        if (editValue) {
+        if (editValue && !taskExists) {
             const { id } = this.props;
 
             this.props.onSave({ id, text: this.state.editValue });
